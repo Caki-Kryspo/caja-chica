@@ -6,7 +6,7 @@
 <title>Caja Chica</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
-    
+
   :root {
     --azul:        #1a3a6b;
     --azul-med:    #2e5fa3;
@@ -1031,6 +1031,8 @@ function guardarEdicion(idx) {
   render();
   toast('Registro actualizado.','ok');
 }
+
+function limpiarFiltros() {
   document.getElementById('filtro-unidad').value = 'TODAS';
   document.getElementById('filtro-desde').value  = '';
   document.getElementById('filtro-hasta').value  = '';
