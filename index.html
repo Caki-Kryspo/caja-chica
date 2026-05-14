@@ -1168,6 +1168,27 @@ function generarExcel(datos, titulo) {
   const dataConSaldo = calcularSaldoAcumuladoUnidad(datos);
   const hoy = new Date().toLocaleDateString('es-CL');
 
+  // Formatea fecha ISO o cualquier formato a DD-MM-YYYY
+  const formatFecha = f => {
+    if (!f) return '';
+    const s = String(f);
+    // Si viene como ISO: 2026-04-01T03:00:00.000Z o YYYY-MM-DD
+    if (s.includes('T') || /^\d{4}-\d{2}-\d{2}$/.test(s)) {
+      const d = new Date(s);
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const yy = d.getFullYear();
+      return `${dd}-${mm}-${yy}`;
+    }
+    return s; // ya está en DD-MM-YYYY
+  };
+
+  // Formatea número como $ 500.000 (sin decimales, con punto de miles)
+  const fmtPeso = n => {
+    if (n === '' || n === null || n === undefined) return '';
+    return '$ ' + Math.round(Number(n)).toLocaleString('es-CL');
+  };
+
   // Encabezado simple
   let filas = `<tr style="background:#1a3a6b;color:#fff;font-weight:700">
     <td>Fecha</td><td>Unidad</td><td>Detalle</td>
@@ -1178,16 +1199,16 @@ function generarExcel(datos, titulo) {
   dataConSaldo.forEach((r, i) => {
     const bg = i % 2 === 0 ? '#ffffff' : '#f2f5fb';
     filas += `<tr style="background:${bg}">
-      <td>${r.fecha}</td>
+      <td>${formatFecha(r.fecha)}</td>
       <td>${r.unidad||''}</td>
       <td>${r.detalle}</td>
-      <td style="text-align:right">${r.entrada!==''?(+r.entrada).toFixed(2):''}</td>
-      <td style="text-align:right">${r.salida !==''?(+r.salida ).toFixed(2):''}</td>
-      <td style="text-align:right;font-weight:700">${(+r.saldoUnidad).toFixed(2)}</td>
+      <td style="text-align:right">${r.entrada!=='' ? fmtPeso(r.entrada) : ''}</td>
+      <td style="text-align:right">${r.salida !=='' ? fmtPeso(r.salida)  : ''}</td>
+      <td style="text-align:right;font-weight:700">${fmtPeso(r.saldoUnidad)}</td>
     </tr>`;
   });
 
-  // Totales por unidad al final — una fila por unidad, sin combinar celdas
+  // Totales por unidad al final
   const saldos = calcularSaldosPorUnidadDe(datos);
   filas += `<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
   filas += `<tr style="background:#e8eef8;font-weight:700">
@@ -1199,9 +1220,9 @@ function generarExcel(datos, titulo) {
     if (st.count === 0) return;
     filas += `<tr>
       <td style="font-weight:700">${u}</td><td></td>
-      <td style="text-align:right">${st.entradas.toFixed(2)}</td>
-      <td style="text-align:right">${st.salidas.toFixed(2)}</td>
-      <td style="text-align:right;font-weight:700">${st.saldo.toFixed(2)}</td>
+      <td style="text-align:right">${fmtPeso(st.entradas)}</td>
+      <td style="text-align:right">${fmtPeso(st.salidas)}</td>
+      <td style="text-align:right;font-weight:700">${fmtPeso(st.saldo)}</td>
       <td></td>
     </tr>`;
   });
