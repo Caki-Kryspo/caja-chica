@@ -577,7 +577,7 @@ async function cargarDesdeSheets() {
       if (!f[0] && !f[2]) continue;
 
       // Normalizar fecha a DD-MM-YYYY sin importar el formato que venga
-      const fecha = normalizarFecha(f[0]);
+      const fecha = normalizarFecha(String(f[0]||'').replace(/[\r\n\t]/g,''));
       DATA.push({
         fecha,
         unidad:  String(f[1]||'OPERACIONES'),
@@ -834,9 +834,10 @@ function renderTarjetas(saldos) {
 // Normaliza cualquier formato de fecha a DD-MM-YYYY
 function normalizarFecha(raw) {
   if (!raw) return '';
-  const s = String(raw).trim();
+  // Eliminar saltos de línea, retornos y espacios extra que Google Sheets puede insertar
+  const s = String(raw).replace(/[\r\n\t]/g, '').trim();
   // ISO completo: 2026-04-01T03:00:00.000Z
-  if (s.includes('T')) {
+  if (s.includes('T') || /^\d{4}-\d{2}-\d{2}/.test(s)) {
     const d = new Date(s);
     if (!isNaN(d)) {
       return `${String(d.getUTCDate()).padStart(2,'0')}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${d.getUTCFullYear()}`;
