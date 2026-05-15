@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0045)https://caki-kryspo.github.io/caja-chica/?v=5 -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caja Chica</title>
 <style>
@@ -483,9 +483,9 @@
     <div class="modal-seccion">
       <div class="modal-seccion-label">Tipo de reporte</div>
       <div class="modal-opciones">
-        <div class="modal-opcion activo" id="op-general"  onclick="selTipo('general')">General</div>
-        <div class="modal-opcion"        id="op-unidad"   onclick="selTipo('unidad')">Por unidad</div>
-        <div class="modal-opcion"        id="op-fechas"   onclick="selTipo('fechas')">Por rango de fechas</div>
+        <div class="modal-opcion activo" id="op-general" onclick="selTipo(&#39;general&#39;)">General</div>
+        <div class="modal-opcion" id="op-unidad" onclick="selTipo(&#39;unidad&#39;)">Por unidad</div>
+        <div class="modal-opcion" id="op-fechas" onclick="selTipo(&#39;fechas&#39;)">Por rango de fechas</div>
       </div>
     </div>
 
@@ -493,10 +493,10 @@
     <div class="modal-seccion" id="wrap-sel-unidad" style="display:none">
       <div class="modal-seccion-label">Unidad a reportar</div>
       <div class="modal-opciones" id="ops-unidades">
-        <div class="modal-opcion activo" id="su-OPERACIONES" onclick="selUnidadR('OPERACIONES')">OPERACIONES</div>
-        <div class="modal-opcion"        id="su-GOE"         onclick="selUnidadR('GOE')">GOE</div>
-        <div class="modal-opcion"        id="su-CIBINT"      onclick="selUnidadR('CIBINT')">CIBINT</div>
-        <div class="modal-opcion"        id="su-UNIDAD"      onclick="selUnidadR('UNIDAD')">UNIDAD</div>
+        <div class="modal-opcion activo" id="su-OPERACIONES" onclick="selUnidadR(&#39;OPERACIONES&#39;)">OPERACIONES</div>
+        <div class="modal-opcion" id="su-GOE" onclick="selUnidadR(&#39;GOE&#39;)">GOE</div>
+        <div class="modal-opcion" id="su-CIBINT" onclick="selUnidadR(&#39;CIBINT&#39;)">CIBINT</div>
+        <div class="modal-opcion" id="su-UNIDAD" onclick="selUnidadR(&#39;UNIDAD&#39;)">UNIDAD</div>
       </div>
     </div>
 
@@ -518,14 +518,14 @@
     <div class="modal-seccion">
       <div class="modal-seccion-label">Formato</div>
       <div class="modal-opciones">
-        <div class="modal-opcion activo" id="fmt-excel" onclick="selFmt('excel')">📊 Excel (.xls)</div>
-        <div class="modal-opcion"        id="fmt-pdf"   onclick="selFmt('pdf')">🖨 PDF imprimible</div>
+        <div class="modal-opcion activo" id="fmt-excel" onclick="selFmt(&#39;excel&#39;)">📊 Excel (.xls)</div>
+        <div class="modal-opcion" id="fmt-pdf" onclick="selFmt(&#39;pdf&#39;)">🖨 PDF imprimible</div>
       </div>
     </div>
 
     <div class="modal-botones">
       <button class="btn-modal-cancel" onclick="cerrarModalReportes()">Cancelar</button>
-      <button class="btn btn-export"   onclick="generarReporte()">Generar →</button>
+      <button class="btn btn-export" onclick="generarReporte()">Generar →</button>
     </div>
   </div>
 </div>
@@ -1432,5 +1432,6 @@ function toast(msg, tipo) {
   clearTimeout(_tt); _tt = setTimeout(()=>{ el.className=''; }, 3500);
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
