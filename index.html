@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)https://caki-kryspo.github.io/caja-chica/?v=5 -->
-<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="es">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Caja Chica</title>
 <style>
@@ -483,9 +483,9 @@
     <div class="modal-seccion">
       <div class="modal-seccion-label">Tipo de reporte</div>
       <div class="modal-opciones">
-        <div class="modal-opcion activo" id="op-general" onclick="selTipo(&#39;general&#39;)">General</div>
-        <div class="modal-opcion" id="op-unidad" onclick="selTipo(&#39;unidad&#39;)">Por unidad</div>
-        <div class="modal-opcion" id="op-fechas" onclick="selTipo(&#39;fechas&#39;)">Por rango de fechas</div>
+        <div class="modal-opcion activo" id="op-general"  onclick="selTipo('general')">General</div>
+        <div class="modal-opcion"        id="op-unidad"   onclick="selTipo('unidad')">Por unidad</div>
+        <div class="modal-opcion"        id="op-fechas"   onclick="selTipo('fechas')">Por rango de fechas</div>
       </div>
     </div>
 
@@ -493,10 +493,10 @@
     <div class="modal-seccion" id="wrap-sel-unidad" style="display:none">
       <div class="modal-seccion-label">Unidad a reportar</div>
       <div class="modal-opciones" id="ops-unidades">
-        <div class="modal-opcion activo" id="su-OPERACIONES" onclick="selUnidadR(&#39;OPERACIONES&#39;)">OPERACIONES</div>
-        <div class="modal-opcion" id="su-GOE" onclick="selUnidadR(&#39;GOE&#39;)">GOE</div>
-        <div class="modal-opcion" id="su-CIBINT" onclick="selUnidadR(&#39;CIBINT&#39;)">CIBINT</div>
-        <div class="modal-opcion" id="su-UNIDAD" onclick="selUnidadR(&#39;UNIDAD&#39;)">UNIDAD</div>
+        <div class="modal-opcion activo" id="su-OPERACIONES" onclick="selUnidadR('OPERACIONES')">OPERACIONES</div>
+        <div class="modal-opcion"        id="su-GOE"         onclick="selUnidadR('GOE')">GOE</div>
+        <div class="modal-opcion"        id="su-CIBINT"      onclick="selUnidadR('CIBINT')">CIBINT</div>
+        <div class="modal-opcion"        id="su-UNIDAD"      onclick="selUnidadR('UNIDAD')">UNIDAD</div>
       </div>
     </div>
 
@@ -518,14 +518,14 @@
     <div class="modal-seccion">
       <div class="modal-seccion-label">Formato</div>
       <div class="modal-opciones">
-        <div class="modal-opcion activo" id="fmt-excel" onclick="selFmt(&#39;excel&#39;)">📊 Excel (.xls)</div>
-        <div class="modal-opcion" id="fmt-pdf" onclick="selFmt(&#39;pdf&#39;)">🖨 PDF imprimible</div>
+        <div class="modal-opcion activo" id="fmt-excel" onclick="selFmt('excel')">📊 Excel (.xls)</div>
+        <div class="modal-opcion"        id="fmt-pdf"   onclick="selFmt('pdf')">🖨 PDF imprimible</div>
       </div>
     </div>
 
     <div class="modal-botones">
       <button class="btn-modal-cancel" onclick="cerrarModalReportes()">Cancelar</button>
-      <button class="btn btn-export" onclick="generarReporte()">Generar →</button>
+      <button class="btn btn-export"   onclick="generarReporte()">Generar →</button>
     </div>
   </div>
 </div>
@@ -823,10 +823,19 @@ function renderTarjetas(saldos) {
     const card = document.createElement('div');
     card.className = 'saldo-card';
     card.style.setProperty('--u-color', cl.color);
+    card.style.setProperty('--u-color', cl.color);
+    card.style.background = `linear-gradient(135deg, ${cl.cl} 0%, #ffffff 60%)`;
+    card.style.borderLeft  = `4px solid ${cl.color}`;
     card.innerHTML = `
-      <div class="saldo-card-label">${u}</div>
-      <div class="saldo-card-valor ${s.saldo < 0 ? 'neg' : ''}">$ ${fmt(s.saldo)}</div>
-      <div class="saldo-card-movs">${s.count} movimiento${s.count !== 1 ? 's' : ''}</div>`;
+      <div class="saldo-card-label" style="color:${cl.color};letter-spacing:.12em">${u}</div>
+      <div style="margin:10px 0 4px;font-family:var(--mono);font-size:22px;font-weight:700;color:${cl.color}">
+        $ ${fmt(s.salidas)}
+      </div>
+      <div style="display:inline-block;background:${cl.color};color:#fff;font-size:10px;font-weight:700;
+        letter-spacing:.08em;padding:2px 10px;border-radius:20px;margin-bottom:6px;text-transform:uppercase">
+        Total salidas
+      </div>
+      <div class="saldo-card-movs" style="color:${cl.color};opacity:.7">${s.count} movimiento${s.count !== 1 ? 's' : ''}</div>`;
     grid.appendChild(card);
   });
 }
@@ -1432,6 +1441,5 @@ function toast(msg, tipo) {
   clearTimeout(_tt); _tt = setTimeout(()=>{ el.className=''; }, 3500);
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
